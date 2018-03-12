@@ -39,12 +39,16 @@ print.humanize <- function(h) {
   if(h<(-1)) text<-paste0(abs(h)," ", attributes(h)$unit, " from now")
   if(h==0) text<-"just now"
   if(h==1) {
-    unit<-sub("s$","",attributes(h)$unit)
-    text<-paste0(h," ",unit," ago")
+    if(attributes(h)$unit=="days") text<-"yesterday" else {
+      unit<-sub("s$","",attributes(h)$unit)
+      text<-paste0(h," ",unit," ago")
+    }
   }
   if(h==-1) {
-    unit<-sub("s$","",attributes(h)$unit)
-    text<-paste0(abs(h)," ",unit," from now")
+    if(attributes(h)$unit=="days") text<-"tomorrow" else {
+      unit<-sub("s$","",attributes(h)$unit)
+      text<-paste0(abs(h)," ",unit," from now")
+    }
   }
   print(text)
   invisible(text)
